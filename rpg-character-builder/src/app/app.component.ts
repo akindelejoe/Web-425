@@ -21,5 +21,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `
 })
 export class AppComponent {
-  year = new Date().getFullYear();
+  title = 'rpg-character-builder';
 }
