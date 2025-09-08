@@ -1,0 +1,28 @@
+:host { display:block; max-width: 880px; margin: 2rem auto; padding: 0 1rem; }
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.field { display: grid; gap: .35rem; margin-bottom: .9rem; }
+label { font-weight: 600; }
+input, select, button {
+  font: inherit;
+  padding: .55rem .65rem;
+  border-radius: 10px;
+  border: 1px solid #d7dbe0;
+}
+input:focus, select:focus {
+  outline: 3px solid rgba(99,102,241,.25);
+  border-color: #aab2bd;
+}
+.actions { display: flex; gap: .5rem; margin-top: .5rem; }
+button { background: #6366f1; border: none; color: #fff; cursor: pointer; }
+button[disabled] { opacity: .6; cursor: not-allowed; }
+button.ghost { background: #eef2ff; color: #3730a3; }
+.error { color: #b91c1c; font-size: .9rem; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: .6rem; border-bottom: 1px solid #e5e7eb; text-align: left; }
+.empty { color: #6b7280; }

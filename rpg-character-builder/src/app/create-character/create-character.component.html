@@ -1,0 +1,86 @@
+<section class="card">
+    <h1>Create Character</h1>
+  
+    <form #createForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Name -->
+      <div class="field">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          minlength="2"
+          [(ngModel)]="formModel.name"
+          #nameModel="ngModel"
+          placeholder="e.g., Arin, Nyx, Dorian"
+        />
+        <div class="error" *ngIf="nameModel.invalid && (nameModel.touched || createForm.submitted)">
+          Name is required (min 2 chars)
+        </div>
+      </div>
+  
+      <!-- Gender -->
+      <div class="field">
+        <label for="gender">Gender</label>
+        <select
+          id="gender"
+          name="gender"
+          required
+          [(ngModel)]="formModel.gender"
+          #genderModel="ngModel"
+        >
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        <div class="error" *ngIf="genderModel.invalid && (genderModel.touched || createForm.submitted)">
+          Please select a gender
+        </div>
+      </div>
+  
+      <!-- Class -->
+      <div class="field">
+        <label for="class">Class</label>
+        <select
+          id="class"
+          name="class"
+          required
+          [(ngModel)]="formModel.class"
+          #classModel="ngModel"
+        >
+          <option>Warrior</option>
+          <option>Mage</option>
+          <option>Rogue</option>
+        </select>
+        <div class="error" *ngIf="classModel.invalid && (classModel.touched || createForm.submitted)">
+          Please select a class
+        </div>
+      </div>
+  
+      <div class="actions">
+        <button type="submit" [disabled]="createForm.invalid">Create</button>
+        <button type="button" class="ghost" (click)="resetForm()">Reset</button>
+      </div>
+    </form>
+  </section>
+  
+  <section class="card">
+    <h2>Players</h2>
+    <p *ngIf="characters.length === 0" class="empty">No characters yet.</p>
+  
+    <table *ngIf="characters.length > 0" class="table">
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Gender</th><th>Class</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of characters; trackBy: trackById">
+          <td>{{ c.id }}</td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.gender }}</td>
+          <td>{{ c.class }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  

@@ -1,6 +1,11 @@
-import { PlayersComponent } from './players/players.component';
+import { Routes } from '@angular/router';
 
-export const routes = [
-  // existing routes…
-  { path: 'players', component: PlayersComponent }
+export const routes: Routes = [
+  { path: '', redirectTo: 'create', pathMatch: 'full' },
+  {
+    path: 'create',
+    loadComponent: () =>
+      import('./create-character/create-character.component')
+        .then(m => m.CreateCharacterComponent)
+  }
 ];
