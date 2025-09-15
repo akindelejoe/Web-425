@@ -1,29 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive], // <-- add RouterLinkActive
-  template: `
-    <nav class="nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-      <a routerLink="/create" routerLinkActive="active">Create Character</a>
-    </nav>
-
-    <main class="content">
-      <router-outlet></router-outlet>
-    </main>
-
-    <footer class="footer">
-      <nav class="footer-nav">
-        <a routerLink="/create" routerLinkActive="active">Create Character</a> •
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-      </nav>
-      <p>&copy; {{ year }} RPG Character Builder</p>
-    </footer>
-  `
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  year = new Date().getFullYear();
+export class AppComponent implements OnInit {
+  private auth = inject(AuthService);
+  private cookie = inject(CookieService);
+
+  isAuth = false;
+  email = '';
+
+  ngOnInit(): void {
+    this.auth.getAuthState().subscribe((state) => {
+      this.isAuth = state;
+      this.email = state ? this.cookie.get('session_user') : '';
+    });
+  }
+
+  signout(): void {
+    this.auth.signout();
+  }
 }

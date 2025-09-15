@@ -1,0 +1,31 @@
+<section class="signin">
+    <h1>Sign In</h1>
+  
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+        <small class="err" *ngIf="email?.touched && email?.invalid">
+          <span *ngIf="email?.errors?.['required']">Email is required.</span>
+          <span *ngIf="email?.errors?.['email']">Please enter a valid email.</span>
+        </small>
+      </div>
+  
+      <div class="form-row">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="At least 8 chars, letters & numbers" />
+        <small class="err" *ngIf="password?.touched && password?.invalid">
+          <span *ngIf="password?.errors?.['required']">Password is required.</span>
+          <span *ngIf="password?.errors?.['pattern']">Password must be 8+ chars with letters and numbers.</span>
+        </small>
+      </div>
+  
+      <button type="submit" class="btn">Sign In</button>
+    </form>
+  
+    <nav class="secondary-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/create-character" routerLinkActive="active">Create Character</a>
+    </nav>
+  </section>
+  

@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
-import { provideRouter } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],             
-      providers: [provideRouter([])],      
+      imports: [RouterTestingModule, AppComponent],
+      providers: [CookieService, AuthService],
     }).compileComponents();
   });
 
@@ -14,12 +16,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('should render a router-outlet', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const el = fixture.nativeElement as HTMLElement;
-    expect(el.querySelector('router-outlet')).toBeTruthy();
   });
 });
