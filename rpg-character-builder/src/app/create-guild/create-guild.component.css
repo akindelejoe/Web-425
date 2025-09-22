@@ -1,0 +1,10 @@
+.create-guild-wrapper{max-width:900px;margin:2rem auto;padding:1rem;}
+.guild-form .form-row{margin-bottom:1rem;display:flex;flex-direction:column;}
+.guild-form input[type="text"], .guild-form textarea, .guild-form select{padding:.5rem;border:1px solid #ccc;border-radius:4px;}
+.radio-inline{margin-right:1rem;}
+.error{color:#b00020;font-size:.8rem;margin-top:.25rem;}
+.actions{margin-top:1rem;}
+.created-guilds table{width:100%;border-collapse:collapse;margin-top:1rem;}
+.created-guilds th,.created-guilds td{border:1px solid #e0e0e0;padding:.5rem;text-align:left;}
+.small{font-size:.8rem;padding:.25rem .5rem;}
+.no-guilds{color:#666;font-style:italic;margin-top:1rem;}
