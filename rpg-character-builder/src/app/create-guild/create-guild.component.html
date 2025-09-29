@@ -1,77 +1,15 @@
-<section class="create-guild-wrapper">
+<section class="create-guild">
   <h1>Create Guild</h1>
 
-  <form [formGroup]="guildForm" (ngSubmit)="onSubmit()" novalidate class="guild-form">
-    <div class="form-row">
-      <label for="guildName">Guild Name</label>
-      <input id="guildName" type="text" formControlName="guildName" />
-      <small class="error" *ngIf="f['guildName'].touched && f['guildName'].invalid">Guild name is required.</small>
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div>
+      <label>Guild Name</label>
+      <input type="text" formControlName="name" />
+      <small class="error" *ngIf="f['name'].touched && f['name'].invalid">
+        Guild name is required.
+      </small>
     </div>
 
-    <div class="form-row">
-      <label for="description">Description</label>
-      <textarea id="description" rows="4" formControlName="description"></textarea>
-      <small class="error" *ngIf="f['description'].touched && f['description'].invalid">Description is required.</small>
-    </div>
-
-    <div class="form-row">
-      <label for="type">Type</label>
-      <select id="type" formControlName="type">
-        <option value="">-- Select type --</option>
-        <option *ngFor="let t of types" [value]="t">{{ t }}</option>
-      </select>
-      <small class="error" *ngIf="f['type'].touched && f['type'].invalid">Please choose a guild type.</small>
-    </div>
-
-    <fieldset class="form-row">
-      <legend>Notification Preference</legend>
-      <label *ngFor="let opt of notificationOptions" class="radio-inline">
-        <input type="radio" [value]="opt" formControlName="notificationPreference" /> {{ opt }}
-      </label>
-      <small class="error" *ngIf="f['notificationPreference'].touched && f['notificationPreference'].invalid">Select one.</small>
-    </fieldset>
-
-    <div class="form-row checkbox-row">
-      <label>
-        <input type="checkbox" formControlName="acceptTerms" /> I accept the terms.
-      </label>
-      <small class="error" *ngIf="f['acceptTerms'].touched && f['acceptTerms'].invalid">You must accept terms to continue.</small>
-    </div>
-
-    <div class="form-row actions">
-      <button type="submit" [disabled]="guildForm.invalid">Create Guild</button>
-    </div>
+    <button type="submit" [disabled]="form.invalid">Create Guild</button>
   </form>
-
-  <hr />
-
-  <section class="created-guilds" *ngIf="guilds.length > 0">
-    <h2>Created Guilds</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Notify</th>
-          <th>Description</th>
-          <th>Created</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let g of guilds; index as i">
-          <td>{{ g.guildName }}</td>
-          <td>{{ g.type }}</td>
-          <td>{{ g.notificationPreference }}</td>
-          <td>{{ g.description }}</td>
-          <td>{{ g.createdAt | date: 'short' }}</td>
-          <td><button (click)="removeGuild(i)" class="small">Remove</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section *ngIf="guilds.length === 0" class="no-guilds">
-    <p>No guilds created yet.</p>
-  </section>
 </section>

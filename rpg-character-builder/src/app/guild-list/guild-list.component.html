@@ -1,0 +1,11 @@
+<section *ngIf="guilds.length > 0; else emptyGuilds">
+    <h2>Guilds</h2>
+    <ul>
+      <li *ngFor="let g of guilds">{{ g.name }}</li>
+    </ul>
+  </section>
+  
+  <ng-template #emptyGuilds>
+    <p><em>No guilds yet.</em></p>
+  </ng-template>
+  

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { CreateGuildComponent } from './create-guild.component';
+import { By } from '@angular/platform-browser';
 
 describe('CreateGuildComponent', () => {
   let component: CreateGuildComponent;
@@ -8,7 +8,7 @@ describe('CreateGuildComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateGuildComponent]
+      imports: [CreateGuildComponent] // standalone component
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateGuildComponent);
@@ -16,59 +16,35 @@ describe('CreateGuildComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should not emit if form is invalid', () => {
+    spyOn(component.guildCreated, 'emit');
+    component.submit();
+    expect(component.guildCreated.emit).not.toHaveBeenCalled();
   });
 
-  it('should have invalid form initially', () => {
-    expect(component.guildForm.valid).toBeFalse();
-  });
+  it('should emit guild when form is valid and submitted', () => {
+    spyOn(component.guildCreated, 'emit');
 
-  it('should require acceptTerms to be checked', () => {
-    const form = component.guildForm;
-    form.patchValue({
-      guildName: 'Testers',
-      description: 'A test guild',
-      type: 'Casual',
-      notificationPreference: 'Email',
-      acceptTerms: false
+    component.form.setValue({
+      name: 'Fellowship of the Ring'
     });
-    expect(form.valid).toBeFalse();
-    form.patchValue({ acceptTerms: true });
-    expect(form.valid).toBeTrue();
-  });
 
-  it('should not add guild on invalid submit', () => {
-    expect(component.guilds.length).toBe(0);
-    component.onSubmit();
-    expect(component.guilds.length).toBe(0);
-  });
+    component.submit();
 
-  it('should add guild on valid submit', () => {
-    const form = component.guildForm;
-    form.patchValue({
-      guildName: 'Alpha',
-      description: 'First',
-      type: 'Competitive',
-      notificationPreference: 'SMS',
-      acceptTerms: true
+    expect(component.guildCreated.emit).toHaveBeenCalledWith({
+      name: 'Fellowship of the Ring'
     });
-    component.onSubmit();
-    expect(component.guilds.length).toBe(1);
-    expect(component.guilds[0].guildName).toBe('Alpha');
   });
 
-  it('should render created guild in table after submit', () => {
-    component.guildForm.patchValue({
-      guildName: 'Bravo',
-      description: 'Second',
-      type: 'Casual',
-      notificationPreference: 'In-App',
-      acceptTerms: true
+  it('should reset form after submit', () => {
+    component.form.setValue({
+      name: 'Avengers'
     });
-    component.onSubmit();
-    fixture.detectChanges();
-    const cell = fixture.debugElement.query(By.css('tbody tr td'));
-    expect(cell.nativeElement.textContent).toContain('Bravo');
+
+    component.submit();
+
+    expect(component.form.value).toEqual({
+      name: ''
+    });
   });
 });

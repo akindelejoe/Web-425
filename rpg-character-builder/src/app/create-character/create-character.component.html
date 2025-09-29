@@ -31,27 +31,4 @@
 
     <button type="submit" [disabled]="form.invalid">Create</button>
   </form>
-
-  <hr />
-
-  <section *ngIf="characters.length > 0">
-    <h2>Characters</h2>
-    <table>
-      <thead>
-        <tr><th>Name</th><th>Class</th><th>Level</th><th></th></tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ch of characters; index as i">
-          <td>{{ ch.name }}</td>
-          <td>{{ ch.clazz }}</td>
-          <td>{{ ch.level }}</td>
-          <td><button (click)="remove(i)">Remove</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section *ngIf="characters.length === 0">
-    <em>No characters yet.</em>
-  </section>
 </section>

@@ -1,27 +1,11 @@
-<nav class="navbar">
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-  <a routerLink="/create-character" routerLinkActive="active">Create Character</a>
-  <a routerLink="/create-guild" routerLinkActive="active">Create Guild</a>
-  <a routerLink="/signin" routerLinkActive="active">Sign In</a>
-</nav>
+<section>
+  <h2>Character Builder</h2>
+  <app-create-character (characterCreated)="onCharacterCreated($event)"></app-create-character>
+  <app-character-list [characters]="characters"></app-character-list>
+</section>
 
-<div class="container">
-  <div class="auth-panel" *ngIf="isAuth; else signedOut">
-    <span>Welcome {{ email }}</span>
-    <button (click)="signout()">Sign out</button>
-  </div>
-  <ng-template #signedOut>
-    <div class="auth-panel">
-      <span>Signed out</span>
-      <a routerLink="/signin">Sign in</a>
-    </div>
-  </ng-template>
-
-  <router-outlet></router-outlet>
-</div>
-
-<footer class="footer">
-  <a routerLink="/create-character" routerLinkActive="active">Create Character</a> |
-  <a routerLink="/create-guild" routerLinkActive="active">Create Guild</a> |
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-</footer>
+<section>
+  <h2>Guild Builder</h2>
+  <app-create-guild (guildCreated)="onGuildCreated($event)"></app-create-guild>
+  <app-guild-list [guilds]="guilds"></app-guild-list>
+</section>

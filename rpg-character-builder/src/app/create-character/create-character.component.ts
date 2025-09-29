@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -17,9 +17,10 @@ import {
 })
 export class CreateCharacterComponent {
   form: FormGroup;
-  characters: Array<{ name: string; clazz: string; level: number }> = [];
 
   classes = ['Warrior', 'Mage', 'Rogue', 'Cleric'];
+
+  @Output() characterCreated = new EventEmitter<{ name: string; clazz: string; level: number }>();
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -33,13 +34,10 @@ export class CreateCharacterComponent {
 
   submit() {
     if (this.form.invalid) {
-      Object.values(this.form.controls)
-        .forEach((c: AbstractControl) => c.markAsTouched());
+      Object.values(this.form.controls).forEach((c: AbstractControl) => c.markAsTouched());
       return;
     }
-    this.characters.push(this.form.value);
+    this.characterCreated.emit(this.form.value); // 🔹 Parent receives character
     this.form.reset({ name: '', clazz: '', level: 1 });
   }
-
-  remove(i: number) { this.characters.splice(i, 1); }
 }
