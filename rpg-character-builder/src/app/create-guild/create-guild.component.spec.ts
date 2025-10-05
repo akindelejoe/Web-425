@@ -44,7 +44,7 @@ describe('CreateGuildComponent', () => {
     component.submit();
 
     expect(component.form.value).toEqual({
-      name: ''
+      name: null
     });
   });
 });

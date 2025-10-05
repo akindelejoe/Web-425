@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SigninComponent } from './signin.component';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
@@ -8,9 +10,20 @@ describe('SigninComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SigninComponent]
-    })
-    .compileComponents();
+      imports: [
+        SigninComponent,           // standalone component
+        RouterTestingModule        // ✅ provides ActivatedRoute and Router
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({}),
+            snapshot: { queryParams: {} } // mock snapshot access
+          }
+        }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SigninComponent);
     component = fixture.componentInstance;

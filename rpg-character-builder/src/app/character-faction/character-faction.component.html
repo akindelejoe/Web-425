@@ -1,0 +1,25 @@
+<div class="faction-container">
+    <h2>Character Factions</h2>
+  
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  
+    <table *ngIf="characterFactions.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let faction of characterFactions">
+          <td>{{ faction.name }}</td>
+          <td>{{ faction.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <ng-template #noData>
+      <p>No factions available.</p>
+    </ng-template>
+  </div>
+  
